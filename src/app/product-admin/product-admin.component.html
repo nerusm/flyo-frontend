@@ -1,0 +1,233 @@
+<div id="tab1">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#1a" data-toggle="tab">Products</a>
+    </li>
+    <li><a href="#2a" data-toggle="tab">Sports</a>
+    </li>
+    <li><a href="#3a" data-toggle="tab">Suppliers</a>
+    </li>
+  </ul>
+  <div class="tab-content clearfix">
+    <div class="tab-pane active" id="1a">
+      
+      <!-- ################### -->
+      <div class="container">
+          <div class="col-sm-7">
+            <div class="col-sm-7">
+                <div>
+                    <h1>Upload Products CSV</h1>
+                    <div *ngIf="error">
+                      <h1>{{ error }} Err1</h1>
+                    </div>
+                    <div *ngIf="uploadResponse.status === 'error'">
+                      <!-- {{ uploadResponse.message }} --> Err
+                    </div>
+                    <div *ngIf="uploadResponse.status === 'progress'">
+                      <div role="progressbar" [style.width.%]="uploadResponse.message" aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100">
+                        {{uploadResponse.message}} Msg
+                      </div>
+                    </div>
+                    <form (ngSubmit)="onFileUploadSubmit()" #ProductMasterUploadForm="ngForm">
+                      <input type="file" name="avatar" (change)="onFileChange($event)" />
+                      <button type="submit">Upload</button>
+                    </form>
+                  </div>
+            </div>
+            <!-- ^^^^^^^^^ Product Delete Form ^^^^^^^ -->
+            <form (ngSubmit)="onProductDelete()" #ProductDeleteForm="ngForm">
+              <div class="form-group">
+                <div class="col-sm-7">
+                  <div class="card my-5">
+                    <div class="card-body">
+                      <u>
+                        <h2>Products</h2>
+                      </u>
+                      <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Sub Model1</th>
+                            <th scope="col">Sub Model2</th>
+                            <th scope="col">Sub Model3</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Last Puchased From</th>
+                            <th scope="col">Manufacturer</th>
+                            <th scope="col">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of productsCheckedItems">
+                            <td><input type="checkbox" [(ngModel)]="item.checked" (change)="onToggle()"
+                                name="productDeleteCheckbox"></td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.model}}</td>
+                            <td>{{item.sub_model1}}</td>
+                            <td>{{item.sub_model2}}</td>
+                            <td>{{item.sub_model3}}</td>
+                            <td>{{item.size}}</td>
+                            <td>{{item.last_purchased_from}}</td>
+                            <td>XXX</td>
+                            <td>0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <button type="submit" class="btn btn-info">Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div>
+  
+                </div>
+              </div>
+            </form>
+            <!-- ^^^^^^^^^ Product Delete Form ^^^^^^^ -->
+          </div>
+        </div>
+      <!-- ############### -->
+
+      <!-- ****** -->
+      <!-- <div>
+        <h1>Upload Products CSV</h1>
+        <div *ngIf="error">
+          <h1>{{ error }}</h1>
+        </div>
+        <div *ngIf="uploadResponse.status === 'error'">
+          {{ uploadResponse.message }}
+        </div>
+        <div *ngIf="uploadResponse.status === 'progress'">
+          <div role="progressbar" [style.width.%]="uploadResponse.message" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">
+            {{uploadResponse.message}}%
+          </div>
+        </div>
+        <form (ngSubmit)="onFileUploadSubmit()" #ProductMasterUploadForm="ngForm">
+          <input type="file" name="avatar" (change)="onFileChange($event)" />
+          <button type="submit">Upload</button>
+        </form>
+      </div> -->
+      <!-- ****** -->
+
+
+    </div>
+
+    <!-- Sport Container Start -->
+    <div class="tab-pane" id="2a">
+      <div class="container">
+        <div class="col-sm-7">
+          <div class="col-sm-7">
+            <form (ngSubmit)="onSportSubmit(SportAdminForm)" #SportAdminForm="ngForm">
+              <div class="form-group">
+                <label for="sportName">Sport Name: </label>
+                <input type="text" [(ngModel)]="sport.sportName" class="form-control" id="sportName"
+                  placeholder="Enter Sport Name" name="sportName" required #sportName="ngModel">
+              </div>
+              <button type="submit" [disabled]="!SportAdminForm.form.valid" class="btn btn-info">Add New</button>
+            </form>
+          </div>
+          <form (ngSubmit)="onSportDelete()" #SportDeleteForm="ngForm">
+            <div class="form-group">
+              <div class="col-sm-7">
+                <div class="card my-5">
+                  <div class="card-body">
+                    <u>
+                      <h2>Sports</h2>
+                    </u>
+                    <table class="table table-bordered table-striped">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Select</th>
+                          <th scope="col">Sport Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of sportsListItems">
+                          <td><input type="checkbox" [(ngModel)]="item.checked" (change)="onToggle()"
+                              name="sportDeleteCheckbox"></td>
+                          <td>{{item.label}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Sport Container End -->
+
+    <!-- Supplier Container Start -->
+    <div class="tab-pane" id="3a">
+      <div class="container">
+        <div class="col-sm-7">
+          <div class="col-sm-7">
+            <!-- <u><h2>Add New Supplier</h2></u> -->
+            <form (ngSubmit)="onSubmit(ProductAdmin)" #ProductAdmin="ngForm">
+              <div class="form-group">
+                <label for="supplierName">Supplier Name: </label>
+                <input type="text" [(ngModel)]="supplier.name" class="form-control" id="supplierName"
+                  placeholder="Enter Supplier Name" name="supplierName" required #supplierName="ngModel">
+                <input type="hidden" id="componentId" name="componentId" value="supplier">
+                <!-- <div [hidden]="!supplierName.pristine" class="alert alert-danger">Name is required</div> -->
+              </div>
+              <div class="form-group">
+                <label for="supplierLocation">Supplier Location:</label>
+                <input type="text" [(ngModel)]="supplier.location" class="form-control" id="supplierLocation"
+                  placeholder="Enter Supplier Location" name="supplierLocation" #supplierLocation="ngModel" required>
+                <!-- <div [hidden]="!supplierLocation.pristine" class="alert alert-danger">Location is required</div> -->
+              </div>
+              <button type="submit" [disabled]="!ProductAdmin.form.valid" class="btn btn-info">Add New</button>
+            </form>
+          </div>
+
+          <form (ngSubmit)="onSupplierDelete()" #SupplierDeleteForm="ngForm">
+            <div class="form-group">
+
+              <div class="col-sm-7">
+                <div class="card my-5">
+                  <div class="card-body">
+                    <u>
+                      <h2>Suppliers</h2>
+                    </u>
+                    <table class="table table-bordered table-striped">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Sel</th>
+                          <th scope="col">Supplier Name</th>
+                          <th scope="col">Location</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let supplier of suppliersListItems">
+                          <td><input type="checkbox" [(ngModel)]="supplier.checked" (change)="onToggle()"
+                              name="supplierDeleteCheckbox"></td>
+
+                          <td>{{ supplier.label }}</td>
+                          <td>{{ supplier.label2 }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-info">Delete</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- Supplier Container End -->
+  </div>
+</div>
